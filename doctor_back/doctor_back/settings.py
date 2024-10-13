@@ -81,9 +81,13 @@ WSGI_APPLICATION = "doctor_back.wsgi.application"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',  # 假设你使用的是 MySQL
+        'NAME': 'MedicalStore',                # 数据库名
+        'USER': 'root',                   # 数据库用户名
+        'PASSWORD': 'vsmvpvp10MS',           # 数据库密码
+        'HOST': 'localhost',                   # 数据库主机
+        'PORT': '3306',                        # 数据库端口
     }
 }
 
