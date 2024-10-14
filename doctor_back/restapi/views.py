@@ -16,8 +16,10 @@ def search_database(request):
             Q(h__icontains=query) | Q(t__icontains=query) | Q(r__icontains=query)
         ).values('h', 't', 'r')
 
-        print(f"Search query: {query}, Results: {list(results)}")  # 打印搜索结果
-
+        if results:
+            print(f"用户输入了: {query}, Results: {list(results)}")  # 打印搜索结果
+        else:
+            print(f"未找到与'{query}'匹配的结果。")
         return Response({"results": list(results)})
 
     return Response({"results": []})
