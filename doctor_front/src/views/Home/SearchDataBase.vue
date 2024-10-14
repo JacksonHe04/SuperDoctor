@@ -87,13 +87,42 @@ form {
   width: calc(100% - 120px);
   padding: 10px;
   margin-right: 10px;
+  border-radius: 50px;
+  border: 1px solid #ccc;
+  box-shadow: -4px -2px 16px 0px #ffffff, 4px 2px 16px 0px rgba(180, 203, 181, 0.6);
 }
+/* From Uiverse.io by barisdogansutcu */
 .search-button {
-  padding: 10px 20px;
-  background-color: #b4cbb5;
-  color: white;
-  border: none;
+  //display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: $xtxColor;
+  background-color: #e0e8ef;
+  border-style: solid;
+  border-width: 2px 2px 2px 2px;
+  border-color: rgba(255, 255, 255, 0.333);
+  border-radius: 40px 40px 40px 40px;
+  padding: 10px 25px 10px 25px;
+  transform: translate(0px, 0px) rotate(0deg);
+  transition: 0.2s;
+  box-shadow: -4px -2px 16px 0px #ffffff, 4px 2px 16px 0px rgba(180, 203, 181, 0.6);
   cursor: pointer;
+}
+
+.search-button:hover {
+  color: #516d91;
+  background-color: #E5EDF5;
+  box-shadow: -2px -1px 8px 0px #ffffff, 2px 1px 8px 0px rgb(95 157 231 / 48%);
+}
+
+.search-button:active {
+  box-shadow: none;
 }
 .search-results {
   margin-top: 20px;
