@@ -4,30 +4,38 @@
     <div class="contact">
       <div class="container">
         <dl>
-          <dt>客户服务</dt>
-          <dd><i class="iconfont icon-kefu"></i> 在线客服</dd>
-          <dd><i class="iconfont icon-question"></i> 问题反馈</dd>
-        </dl>
-        <dl>
-          <dt>关注我们</dt>
+          <dt>关于我</dt>
           <dd>
-            <a href="https://github.com/JacksonHe04/SuperDoctor" target="_blank">
-              <i class="iconfont icon-weixin"></i> 微信
+            <a href="/src/assets/images/qrcode.jpg" target="_blank">
+              <i class="iconfont icon-wechat-fill"></i> 微信
             </a>
           </dd>
           <dd>
-            <a href="https://github.com/JacksonHe04/BingWenBookStore" target="_blank">
-              <i class="iconfont icon-weibo"></i> 微博
+            <a href="https://yuque.com/jacksonhe" target="_blank">
+              <i class="iconfont icon-yuque-fill"></i> 语雀
+            </a>
+          </dd>
+        </dl>
+        <dl>
+          <dt>项目开源</dt>
+          <dd>
+            <a href="https://github.com/JacksonHe04" target="_blank">
+              <i class="iconfont icon-github"></i>个人项目
+            </a>
+          </dd>
+          <dd>
+            <a href="https://github.com/JacksonHe04/SuperDoctor" target="_blank">
+              <i class="iconfont icon-github"></i> GitHub仓库
             </a>
           </dd>
         </dl>
         <dl>
           <dt>联系我们</dt>
-          <dd class="qrcode"><img src="@/assets/images/qrcode.jpg" /></dd>
+          <dd class="qrcode"><img src="@/assets/images/qrcode.jpg"  alt="wx"/></dd>
           <dd class="download">
             <span>扫描二维码</span>
             <span>立即联系开发者</span>
-            <a href="javascript:;">关于我们</a>
+            <a href="https://github.com/JacksonHe04/SuperDoctor" target="_blank">关于我们</a>
           </dd>
         </dl>
         <dl>
@@ -90,6 +98,7 @@
     dt {
       line-height: 1;
       font-size: 18px;
+      color: #999;
     }
 
     dd {
@@ -140,7 +149,7 @@
         line-height: 1;
         padding: 10px 25px;
         margin-top: 5px;
-        color: #fff;
+        color: #999;
         border-radius: 2px;
         background-color: $xtxColor;
       }
@@ -163,7 +172,6 @@
   }
 
   .extra {
-    background-color: #ffffff;
     position: absolute;
     width: 100%;
   }

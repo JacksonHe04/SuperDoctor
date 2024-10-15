@@ -1,13 +1,12 @@
 <script setup>
 import HomeTitle from "@/views/Home/HomeTitle.vue";
-import Unfininshed from "@/views/Tools/Unfinished.vue";
+import SearchDataBase from "@/views/Home/SearchDataBase.vue";
 </script>
 
 <template>
   <HomeTitle>
-    <Unfininshed />
+    <!--<SearchDataBase />-->
   </HomeTitle>
-  <!--<HomeTitle />-->
 
 </template>
 

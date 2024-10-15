@@ -5,7 +5,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Login from '@/views/Login/index.vue'
 import Layout from '@/views/Layout/index.vue'
 import Home from '@/views/Home/index.vue'
-import Category from '@/views/Category/index.vue'
+import MedicalDatabase from '@/views/MedicalDataBase/index.vue'
+import NLP from '@/views/NLP/index.vue'
 // import SubCategory from '@/views/SubCategory/index.vue'
 // import Detail from '@/views/Detail/index.vue'
 // import CartList from '@/views/CartList/index.vue'
@@ -30,10 +31,20 @@ const router = createRouter({
                     meta: { title: '首页' }
                 },
                 {
-                    path: 'category/:id',
-                    component: Category,
-                    meta: { title: '分类' }
+                    path: 'MedicalDatabase',
+                    component: MedicalDatabase,
+                    meta: { title: '医疗数据库' }
                 },
+                {
+                    path: 'nlp',
+                    component: NLP,
+                    meta: { title: 'NLP算法处理' }
+                },
+                {
+                    path: '/login',
+                    component: Login,
+                    meta: { title: '登录超级医生' }
+                }
         //         {
         //             path: 'category/sub/:id',
         //             component: SubCategory,
@@ -82,11 +93,7 @@ const router = createRouter({
         //         }
             ]
         },
-        {
-            path: '/login',
-            component: Login,
-            meta: { title: '登录超级医生' }
-        }
+
     ],
     // 路由滚动行为定制
     scrollBehavior () {

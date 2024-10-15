@@ -15,9 +15,9 @@
         <li class="home">
           <RouterLink to="/">首页</RouterLink>
         </li>
-        <li active-class="active"> <RouterLink to="/">医疗数据库</RouterLink> </li>
-        <li active-class="active"> <RouterLink to="/">自然语言处理</RouterLink> </li>
-        <li active-class="active"> <RouterLink to="/">登录</RouterLink> </li>
+        <li> <RouterLink to="/MedicalDatabase" active-class="active">医疗数据库</RouterLink> </li>
+        <li> <RouterLink to="/nlp" active-class="active">自然语言处理</RouterLink> </li>
+        <li> <RouterLink to="/login" active-class="active">登录</RouterLink> </li>
       </ul>
     </div>
   </header>
@@ -28,6 +28,9 @@
 .app-header {
   background: #fff;
   border-bottom: 2px solid #e0e0e0; // 添加灰色下边框
+  // position: fixed; // 固定位置
+  // top: 0; // 置顶
+  // width: 100%; // 确保宽度覆盖整个屏幕
 
   .container {
     display: flex;
@@ -76,17 +79,18 @@
         display: inline-block;
         // 加粗
         font-weight: bold;
-        color: $greyColor2;
+        // color: $greyColor2;
 
         &:hover {
           color: $xtxColor;
           border-bottom: 1px solid $xtxColor;
         }
-      }
 
-      .active {
-        color: $xtxColor;
-        border-bottom: 1px solid $xtxColor;
+        &.active {
+          color: $xtxColor;
+          border-bottom: 1px solid $xtxColor;
+        }
+
       }
 
       &:last-child::after { // 移除最后一个li后的分隔线
