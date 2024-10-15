@@ -1,4 +1,6 @@
 .idea/
+doctor_back/.idea/
+doctor_front/.vscode
 
 # Python 编译后的字节码文件
 __pycache__/
