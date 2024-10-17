@@ -1,71 +1,88 @@
+<!-- ShowDataBase.vue -->
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, watch } from 'vue';
 import axios from 'axios';
 
-const currentPage = ref(1);
-const pageSize = 10; // 每页显示10条数据
-const totalData = ref([]);
-const paginatedData = ref([]);
-const selectedDataset = ref('');
-
-onMounted(() => {
-  selectedDataset.value = 'train'; // 确保页面加载后有默认值
+const props = defineProps({
+  selectedDataset: {
+    type: String,
+    required: true
+  }
 });
 
+const currentPage = ref(1);
+const pageSize = 10;
+const totalData = ref([]);
+const paginatedData = ref([]);
+const totalPages = ref(0);
+const goToPage = ref(1);
 
-// 监听selectedDataset的变化，并获取相应数据集
-watch(selectedDataset, async (newDataset) => {
-  console.log('selectedDataset changed:', newDataset); // 添加日志
+// 监听selectedDataset的变化，获取数据
+watch(() => props.selectedDataset, async (newDataset) => {
   if (newDataset) {
     await fetchDataset(newDataset);
   }
 });
 
-// 获取数据集函数
 const fetchDataset = async (dataset) => {
-  console.log('Fetching dataset:', dataset);  // 添加日志
+  let url = '';
+  switch (dataset) {
+    case 'train':
+      url = 'http://localhost:8000/restapi/get-trainset/';
+      break;
+    case 'val':
+      url = 'http://localhost:8000/restapi/get-valset/';
+      break;
+    case 'test':
+      url = 'http://localhost:8000/restapi/get-testset/';
+      break;
+    default:
+      console.error('未知的数据集类型:', dataset);
+      return;
+  }
+
   try {
-    const response = await axios.get('http://localhost:8000/restapi/get-dataset/', { dataset });
-    console.log('Data fetched successfully:', response.data);  // 添加日志
+    const response = await axios.get(url);
     totalData.value = response.data;
     currentPage.value = 1;
+    totalPages.value = Math.ceil(totalData.value.length / pageSize);
     updatePagination();
   } catch (error) {
     console.error('获取数据集失败:', error);
   }
 };
 
-
-// 分页更新函数
 const updatePagination = () => {
   const start = (currentPage.value - 1) * pageSize;
   const end = start + pageSize;
   paginatedData.value = totalData.value.slice(start, end);
 };
 
-// 监听当前页的变化，更新分页数据
-watch(currentPage, () => {
-  updatePagination();
-});
+// 分页控制
+watch(currentPage, updatePagination);
 
-// 前一页
 const prevPage = () => {
   if (currentPage.value > 1) {
     currentPage.value--;
   }
 };
 
-// 后一页
 const nextPage = () => {
-  if (currentPage.value * pageSize < totalData.value.length) {
+  if (currentPage.value < totalPages.value) {
     currentPage.value++;
+  }
+};
+
+const jumpToPage = () => {
+  if (goToPage.value >= 1 && goToPage.value <= totalPages.value) {
+    currentPage.value = goToPage.value;
   }
 };
 </script>
 
 <template>
   <div id="dynamic-component" class="dynamic-component">
-    <h2>数据集表格 - {{ selectedDataset }}</h2>
+    <h2>数据集表格 - {{ props.selectedDataset }}</h2>
     <table>
       <thead>
       <tr>
@@ -87,32 +104,46 @@ const nextPage = () => {
       </tbody>
     </table>
 
-    <!-- 分页按钮 -->
+    <!-- 分页部分 -->
     <div class="pagination">
       <button @click="prevPage" :disabled="currentPage === 1">上一页</button>
-      <span>当前页: {{ currentPage }}</span>
-      <button @click="nextPage" :disabled="currentPage * pageSize >= totalData.length">下一页</button>
+      <span>显示第 {{ (currentPage - 1) * pageSize + 1 }} 到第 {{ Math.min(currentPage * pageSize, totalData.length) }} 条，共 {{ totalData.length }} 条数据</span>
+      <button @click="nextPage" :disabled="currentPage === totalPages">下一页</button>
+
+      <!-- 跳转到指定页 -->
+      <div class="page-jump">
+        <label for="pageInput">跳转到页:</label>
+        <input type="number" v-model="goToPage" id="pageInput" min="1" :max="totalPages" />
+        <button @click="jumpToPage">跳转</button>
+      </div>
     </div>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .dynamic-component {
-  margin-top: 20px;
+  margin-top: 250px;
   padding: 20px;
-  background-color: #f0f0f0;
+  background-color: $greyTrans;
   border-radius: 10px;
   text-align: center;
+}
+
+h2 {
+  height: 70px;
+  font-size: 28px;
+  padding: 10px;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
+  background-color: $themeTrans3;
 }
 
 table, th, td {
-  border: 1px solid black;
+  border: 1px solid $greyColor2;
 }
 
 th, td {
@@ -121,6 +152,52 @@ th, td {
 }
 
 .pagination {
-  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  color: $darkGreen;
+
+  button {
+    background-color: $themeColor;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    margin: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:disabled {
+      background-color: $greyColor2;
+      cursor: not-allowed;
+    }
+  }
+
+  .page-jump {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+
+    label {
+      margin-right: 10px;
+    }
+
+    input {
+      width: 50px;
+      padding: 5px;
+      text-align: center;
+      border-radius: 5px;
+      border: 1px solid $greyColor2;
+    }
+
+    button {
+      background-color: $themeColor;
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
 }
 </style>

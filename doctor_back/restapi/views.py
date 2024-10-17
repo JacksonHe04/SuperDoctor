@@ -50,3 +50,53 @@ def get_train_set(request):
 
     # 如果请求方法不是 POST，返回 405 Method Not Allowed
     return JsonResponse({'error': 'Method Not Allowed'}, status=405)
+
+
+def get_val_set(request):
+    if request.method == 'GET':
+        # 获取所有 TrainSet 对象
+        val_sets = ValSet.objects.all()
+
+        # 构建响应数据
+        data = [
+            {
+                'auto_id': val_set.auto_id,
+                'sentence': val_set.sentence,
+                'h': val_set.h,
+                't': val_set.t,
+                'r': val_set.r
+            }
+            for val_set in val_sets
+        ]
+
+        # 返回 JSON 响应
+        return JsonResponse(data, safe=False)
+
+    # 如果请求方法不是 POST，返回 405 Method Not Allowed
+    return JsonResponse({'error': 'Method Not Allowed'}, status=405)
+
+
+def get_test_set(request):
+    if request.method == 'GET':
+        # 获取所有 TrainSet 对象
+        test_sets = TestSet.objects.all()
+
+        # 构建响应数据
+        data = [
+            {
+                'auto_id': test_set.auto_id,
+                'sentence': test_set.sentence,
+                'h': test_set.h,
+                't': test_set.t,
+                'r': test_set.r
+            }
+            for test_set in test_sets
+        ]
+
+        # 返回 JSON 响应
+        return JsonResponse(data, safe=False)
+
+    # 如果请求方法不是 POST，返回 405 Method Not Allowed
+    return JsonResponse({'error': 'Method Not Allowed'}, status=405)
+
+

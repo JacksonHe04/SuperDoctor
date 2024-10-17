@@ -1,3 +1,4 @@
+<!-- DatabaseCard.vue -->
 <script setup>
 import {ref} from 'vue';
 import ShowDataBase from '@/views/MedicalDataBase/ShowDataBase.vue'; // 引入动态组件
@@ -170,11 +171,4 @@ const handleButtonClick = (datasetName) => {
   transition: 0.6s ease-out;
 }
 
-.dynamic-component {
-  margin-top: 50px;
-  padding: 20px;
-  background-color: #f0f0f0;
-  border-radius: 10px;
-  text-align: center;
-}
 </style>
