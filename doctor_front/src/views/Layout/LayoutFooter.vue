@@ -6,7 +6,7 @@
         <dl>
           <dt>关于我</dt>
           <dd>
-            <a href="/src/assets/images/qrcode.jpg" target="_blank">
+            <a href="/src/assets/images/wechat_qrc.png" target="_blank">
               <i class="iconfont icon-wechat-fill"></i> 微信
             </a>
           </dd>
@@ -31,7 +31,7 @@
         </dl>
         <dl>
           <dt>联系我们</dt>
-          <dd class="qrcode"><img src="@/assets/images/qrcode.jpg"  alt="wx"/></dd>
+          <dd class="qrcode"><img src="@/assets/images/wechat_black.png"  alt="wx"/></dd>
           <dd class="download">
             <span>扫描二维码</span>
             <span>立即联系开发者</span>
@@ -117,7 +117,7 @@
 
       &:hover {
         .iconfont {
-          color: $xtxColor;
+          color: $themeColor;
         }
       }
 
@@ -151,7 +151,7 @@
         margin-top: 5px;
         color: #999;
         border-radius: 2px;
-        background-color: $xtxColor;
+        background-color: $themeTrans;
       }
     }
 

@@ -109,7 +109,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .hero-section {
   position: relative;
   display: flex;
@@ -137,11 +137,12 @@ export default {
 }
 
 .title {
-  font-size: 4rem;
-  color: #333;
+  font-size: 4.4rem;
+  color: $themeColor;
   margin-bottom: 0.5em;
   font-weight: bold;
 }
+
 
 .subtitle {
   font-size: 1.5rem;

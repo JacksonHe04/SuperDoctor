@@ -70,7 +70,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .search-database {
   max-width: 600px;
   margin: 0 auto;
@@ -84,12 +84,20 @@ form {
   margin-top: 20px;
 }
 .search-input {
+  height: 46.5px;
   width: calc(100% - 120px);
-  padding: 10px;
+  padding: 18px;
+  font-size: medium;
   margin-right: 10px;
   border-radius: 50px;
-  border: 1px solid #ccc;
+  border-style: solid;
+  border-width: 2px 2px 2px 2px;
+  border-color: $themeTrans;
+  transform: translate(0px, 0px) rotate(0deg);
+  transition: 0.2s;
   box-shadow: -4px -2px 16px 0px #ffffff, 4px 2px 16px 0px rgba(180, 203, 181, 0.6);
+
+  // border-radius: 40px 40px 40px 40px;
 }
 /* From Uiverse.io by barisdogansutcu */
 .search-button {
@@ -98,12 +106,12 @@ form {
   justify-content: center;
   gap: 10px;
   font-family: inherit;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.4px;
-  color: $xtxColor;
-  background-color: #e0e8ef;
+  color: $greyColor2;
+  background-color: $themeTrans;
   border-style: solid;
   border-width: 2px 2px 2px 2px;
   border-color: rgba(255, 255, 255, 0.333);
@@ -117,7 +125,7 @@ form {
 
 .search-button:hover {
   color: #516d91;
-  background-color: #E5EDF5;
+  background-color: $themeColor;
   box-shadow: -2px -1px 8px 0px #ffffff, 2px 1px 8px 0px rgb(95 157 231 / 48%);
 }
 

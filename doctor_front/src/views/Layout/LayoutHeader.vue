@@ -82,13 +82,13 @@
         // color: $greyColor2;
 
         &:hover {
-          color: $xtxColor;
-          border-bottom: 1px solid $xtxColor;
+          color: $themeColor;
+          border-bottom: 1px solid $themeColor;
         }
 
         &.active {
-          color: $xtxColor;
-          border-bottom: 1px solid $xtxColor;
+          color: $themeColor;
+          border-bottom: 1px solid $themeColor;
         }
 
       }
