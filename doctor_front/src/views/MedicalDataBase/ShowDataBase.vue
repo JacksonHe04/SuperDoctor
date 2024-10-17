@@ -1,14 +1,21 @@
 <!-- ShowDataBase.vue -->
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import axios from 'axios';
 
+/**
+ * 定义组件的属性
+ *
+ * @param {Object} defineProps - 一个函数，用于定义组件接收的属性
+ * @property {String} selectedDataset - 所选数据集的标识符，这是一个必填项
+ */
 const props = defineProps({
   selectedDataset: {
     type: String,
     required: true
   }
 });
+
 
 const currentPage = ref(1);
 const pageSize = 10;
@@ -17,14 +24,21 @@ const paginatedData = ref([]);
 const totalPages = ref(0);
 const goToPage = ref(1);
 
-// 监听selectedDataset的变化，获取数据
+
 watch(() => props.selectedDataset, async (newDataset) => {
+  // 当selectedDataset变化时，调用fetchDataset函数获取新的数据集
   if (newDataset) {
+    console.log('已监听成功:', newDataset);
     await fetchDataset(newDataset);
   }
 });
 
+/**
+ * 异步获取指定的数据集
+ * @param {String} dataset - 需要获取的数据集类型，可为'train', 'val', 或 'test'
+ */
 const fetchDataset = async (dataset) => {
+  // 初始化URL，根据不同的数据集类型选择不同的API endpoint
   let url = '';
   switch (dataset) {
     case 'train':
@@ -37,20 +51,34 @@ const fetchDataset = async (dataset) => {
       url = 'http://localhost:8000/restapi/get-testset/';
       break;
     default:
+      // 如果数据集类型未知，打印错误信息并终止函数执行
       console.error('未知的数据集类型:', dataset);
       return;
   }
 
   try {
+    // 发起GET请求，获取数据集
     const response = await axios.get(url);
+    // 更新总数据，当前页码重置为第1页
     totalData.value = response.data;
     currentPage.value = 1;
+    // 根据总数据量和每页大小计算总页数
     totalPages.value = Math.ceil(totalData.value.length / pageSize);
+    // 更新分页信息
     updatePagination();
+    console.log('已发送请求:', dataset);
   } catch (error) {
+    // 如果获取数据集失败，打印错误信息
     console.error('获取数据集失败:', error);
   }
 };
+
+// 组件挂载时立即调用 fetchDataset
+onMounted(async () => {
+  if (props.selectedDataset) {
+    await fetchDataset(props.selectedDataset);
+  }
+});
 
 const updatePagination = () => {
   const start = (currentPage.value - 1) * pageSize;
