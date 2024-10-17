@@ -1,11 +1,11 @@
 <script setup>
 import HomeTitle from "@/views/Home/HomeTitle.vue";
-import SearchDataBase from "@/views/Home/SearchDataBase.vue";
+import DatabaseCard from "@/views/MedicalDataBase/DatabaseCard.vue";
 </script>
 
 <template>
   <HomeTitle>
-    <!--<SearchDataBase />-->
+    <DatabaseCard />
   </HomeTitle>
 
 </template>

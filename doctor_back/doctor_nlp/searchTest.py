@@ -7,14 +7,14 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'doctor_back.settings')
 # 初始化Django
 django.setup()
 
-from restapi.models import MedicalStore  # 导入模型
+from restapi.models import TestSet  # 导入模型
 from django.db.models import Q
 
 
 def search_database_console(query):
     if query:
         # 使用Q对象进行模糊查询，搜索`h`、`t`或`r`字段
-        results = MedicalStore.objects.filter(
+        results = TestSet.objects.filter(
             Q(h__icontains=query) | Q(t__icontains=query) | Q(r__icontains=query)
         ).values('h', 't', 'r')
 
