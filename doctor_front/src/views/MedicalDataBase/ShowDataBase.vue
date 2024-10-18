@@ -13,6 +13,10 @@ const props = defineProps({
   selectedDataset: {
     type: String,
     required: true
+  },
+  selectedDataCh: {
+    type: String,
+    required: true
   }
 });
 
@@ -93,12 +97,14 @@ const prevPage = () => {
   if (currentPage.value > 1) {
     currentPage.value--;
   }
+  goToPage.value = currentPage.value;
 };
 
 const nextPage = () => {
   if (currentPage.value < totalPages.value) {
     currentPage.value++;
   }
+  goToPage.value = currentPage.value;
 };
 
 const jumpToPage = () => {
@@ -110,15 +116,15 @@ const jumpToPage = () => {
 
 <template>
   <div id="dynamic-component" class="dynamic-component">
-    <h2>数据集表格 - {{ props.selectedDataset }}</h2>
+    <h2>数据集表格 - {{ props.selectedDataCh }}</h2>
     <table>
       <thead>
       <tr>
-        <th>编号 (id)</th>
-        <th>语句 (s)</th>
-        <th>症状 (h)</th>
-        <th>疾病 (t)</th>
-        <th>临床表现 (r)</th>
+        <th style="width: 5%">编号</th>
+        <th style="width: 55%">语句 (s)</th>
+        <th style="width: 15%">头实体 (h)</th>
+        <th style="width: 15%">尾实体 (t)</th>
+        <th style="width: 10%">医疗关系 (r)</th>
       </tr>
       </thead>
       <tbody>
@@ -141,7 +147,7 @@ const jumpToPage = () => {
       <!-- 跳转到指定页 -->
       <div class="page-jump">
         <label for="pageInput">跳转到页:</label>
-        <input type="number" v-model="goToPage" id="pageInput" min="1" :max="totalPages" />
+        <input type="number" v-model="goToPage" id="pageInput" min="1" :max="totalPages" @keyup.enter="jumpToPage" />
         <button @click="jumpToPage">跳转</button>
       </div>
     </div>
@@ -150,28 +156,31 @@ const jumpToPage = () => {
 
 <style scoped lang="scss">
 .dynamic-component {
-  margin-top: 250px;
+  margin-top: 50px;
   padding: 20px;
   background-color: $greyTrans;
-  border-radius: 10px;
   text-align: center;
 }
 
 h2 {
-  height: 70px;
   font-size: 28px;
   padding: 10px;
+  font-weight: 800;
+  color: grey;
 }
 
 table {
-  width: 100%;
+  width: 70%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+  margin: 20px auto;
   background-color: $themeTrans3;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  overflow: hidden;
 }
 
-table, th, td {
-  border: 1px solid $greyColor2;
+th, td {
+  border: 1px solid $greyNoraml;
 }
 
 th, td {

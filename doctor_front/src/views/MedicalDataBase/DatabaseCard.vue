@@ -5,17 +5,33 @@ import ShowDataBase from '@/views/MedicalDataBase/ShowDataBase.vue'; // 引入�
 
 const showComponent = ref(false);
 const selectedDataset = ref('');
+const selectedDataCh = ref('');
 
-const handleButtonClick = (datasetName) => {
+const handleButtonClick = (datasetName, dataCh) => {
+  // 更新当前选中的数据集
   selectedDataset.value = datasetName;
+  selectedDataCh.value = dataCh;
+  // 设置组件显示状态为true
   showComponent.value = true;
+
+  // 使用setTimeout来延迟执行滚动操作，以确保组件有足够的时间完成渲染
   setTimeout(() => {
+    // 获取动态组件的DOM元素
     const componentElement = document.getElementById('dynamic-component');
+    // 如果元素存在，则执行平滑滚动操作
     if (componentElement) {
-      componentElement.scrollIntoView({behavior: 'smooth'});
+      componentElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+      window.scrollTo({
+        top: 350,
+        behavior:'smooth'
+      });
     }
   }, 100);
 };
+
 </script>
 
 <template>
@@ -23,7 +39,7 @@ const handleButtonClick = (datasetName) => {
     <div class="card">
       <div class="title-1">训练集</div>
       <div class="content">7,000</div>
-      <button class="btn" @click="handleButtonClick('train')">查看数据集</button>
+      <button class="btn" @click="handleButtonClick('train', '训练集')">查看数据集</button>
       <div class="bar">
         <div class="emptybar"></div>
         <div class="filledbar"></div>
@@ -33,7 +49,7 @@ const handleButtonClick = (datasetName) => {
     <div class="card">
       <div class="title-1">验证集</div>
       <div class="content">2,000</div>
-      <button class="btn" @click="handleButtonClick('val')">查看数据集</button>
+      <button class="btn" @click="handleButtonClick('val', '验证集')">查看数据集</button>
       <div class="bar">
         <div class="emptybar"></div>
         <div class="filledbar"></div>
@@ -43,7 +59,7 @@ const handleButtonClick = (datasetName) => {
     <div class="card">
       <div class="title-1">测试集</div>
       <div class="content">1,000</div>
-      <button class="btn" @click="handleButtonClick('test')">查看数据集</button>
+      <button class="btn" @click="handleButtonClick('test', '测试集')">查看数据集</button>
       <div class="bar">
         <div class="emptybar"></div>
         <div class="filledbar"></div>
@@ -52,7 +68,7 @@ const handleButtonClick = (datasetName) => {
   </div>
 
   <!-- 展示动态组件 -->
-  <ShowDataBase v-if="showComponent" :selectedDataset="selectedDataset"/>
+  <ShowDataBase v-if="showComponent" :selectedDataset="selectedDataset" :selectedDataCh="selectedDataCh"/>
 </template>
 
 <style scoped lang="scss">
