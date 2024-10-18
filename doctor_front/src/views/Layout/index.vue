@@ -1,13 +1,15 @@
 <script setup>
 import LayoutHeader from "@/views/Layout/LayoutHeader.vue";
+import HomeTitle from "@/views/Layout/TitleAndBackground.vue";
 import LayoutFooter from "@/views/Layout/LayoutFooter.vue";
 import BackToTop from "@/views/Layout/BackToTop.vue";
 </script>
 
 <template>
   <LayoutHeader />
-  <!-- 二级路由出口 -->
-  <RouterView />
+  <HomeTitle>
+    <RouterView />
+  </HomeTitle>
   <BackToTop />
   <LayoutFooter />
 </template>

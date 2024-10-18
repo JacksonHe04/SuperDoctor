@@ -11,18 +11,28 @@ from django.views.decorators.csrf import csrf_exempt  # 如果需要跨域请求
 
 @api_view(['POST'])
 def search_database(request):
-    query = request.data.get('query', '').strip()  # 从POST请求体中获取数据
+    query = request.data.get('query', '').strip()  # 从POST请求体中获取查询字符串
+    dataset = request.data.get('dataset', 'train')  # 从POST请求体中获取用户选择的数据集，默认为train
 
     if query:
-        # 使用Q对象进行模糊查询，搜索`h`、`t`或`r`字段
-        results = TrainSet.objects.filter(
-            Q(h__icontains=query) | Q(t__icontains=query) | Q(r__icontains=query)
-        ).values('h', 't', 'r')
-
-        if results:
-            print(f"用户输入了: {query}, Results: {list(results)}")  # 打印搜索结果
+        # 根据选择的数据集选择模型
+        if dataset == 'train':
+            queryset = TrainSet.objects.filter(
+                Q(h__icontains=query) | Q(t__icontains=query) | Q(r__icontains=query)
+            )
+        elif dataset == 'val':
+            queryset = ValSet.objects.filter(
+                Q(h__icontains=query) | Q(t__icontains=query) | Q(r__icontains=query)
+            )
+        elif dataset == 'test':
+            queryset = TestSet.objects.filter(
+                Q(h__icontains=query) | Q(t__icontains=query) | Q(r__icontains=query)
+            )
         else:
-            print(f"未找到与'{query}'匹配的结果。")
+            return Response({"results": []})  # 如果选择了未知的数据集，返回空结果
+
+        # 获取查询结果并返回
+        results = queryset.values('h', 't', 'r')
         return Response({"results": list(results)})
 
     return Response({"results": []})

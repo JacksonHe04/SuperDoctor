@@ -179,6 +179,14 @@ table {
   overflow: hidden;
 }
 
+th {
+  background-color: $themeTrans;
+  color: grey;
+  font-weight: bold;
+  text-align: left;
+  padding: 12px 0 12px 20px;
+}
+
 th, td {
   border: 1px solid $greyNoraml;
 }

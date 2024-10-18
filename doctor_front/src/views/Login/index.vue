@@ -1,14 +1,9 @@
 <script setup>
-import HomeTitle from "@/views/Home/HomeTitle.vue";
 import Unfininshed from "@/views/Tools/Unfinished.vue";
 </script>
 
 <template>
-  <HomeTitle>
     <Unfininshed />
-  </HomeTitle>
-  <!--<HomeTitle />-->
-
 </template>
 
 <style scoped></style>

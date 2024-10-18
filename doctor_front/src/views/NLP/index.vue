@@ -1,13 +1,11 @@
 <script setup>
-import HomeTitle from "@/views/Home/HomeTitle.vue";
-import SearchDataBase from "@/views/Home/SearchDataBase.vue";
+import Loading from '@/views/Tools/Loading.vue'
 </script>
 
 <template>
-  <HomeTitle>
-
-  </HomeTitle>
-
+<Loading />
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>

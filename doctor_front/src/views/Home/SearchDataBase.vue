@@ -2,30 +2,40 @@
 <template>
   <div class="search-database">
     <div class="box-card">
-      <h2>在Train中搜索医疗数据</h2>
+      <h2>请选择数据集并搜索医疗数据</h2>
+      <!-- 添加数据集选择器 -->
+      <label for="dataset-select"></label>
+      <select id="dataset-select" v-model="selectedDataset">
+        <option value="train">Train 训练集</option>
+        <option value="val">Val 验证集</option>
+        <option value="test">Test 测试集</option>
+      </select>
+
+      <!-- 搜索表单 -->
       <form @submit.prevent="searchDatabase">
         <input type="text" v-model="searchQuery" placeholder="请输入症状或表现等..." class="search-input" />
         <button type="submit" class="search-button">搜索</button>
       </form>
 
+      <!-- 显示查询结果 -->
       <table v-if="searchResults.length" class="search-results">
         <thead>
-          <tr>
-            <th>症状 (h)</th>
-            <th>疾病 (t)</th>
-            <th>临床表现 (r)</th>
-          </tr>
+        <tr>
+          <th style="width: 34%">头实体 (h)</th>
+          <th style="width: 34%">尾实体 (t)</th>
+          <th style="width: 32%">医疗关系 (r)</th>
+        </tr>
         </thead>
         <tbody>
-          <tr v-for="(result, index) in searchResults" :key="index">
-            <td>{{ result.h }}</td>
-            <td>{{ result.t }}</td>
-            <td>{{ result.r }}</td>
-          </tr>
+        <tr v-for="(result, index) in searchResults" :key="index">
+          <td>{{ result.h }}</td>
+          <td>{{ result.t }}</td>
+          <td>{{ result.r }}</td>
+        </tr>
         </tbody>
       </table>
 
-      <p v-else-if ="hasSearched" class="no-data">暂无数据，请输入有效的搜索关键词。</p>
+      <p v-else-if="hasSearched" class="no-data">暂无数据，请输入有效的搜索关键词。</p>
     </div>
   </div>
 </template>
@@ -37,6 +47,7 @@ export default {
   data() {
     return {
       searchQuery: '',       // 用户输入的查询
+      selectedDataset: 'train',  // 选中的数据集（默认为 train）
       searchResults: [],     // 查询到的数据结果
       hasSearched: false     // 是否已进行过搜索
     };
@@ -54,8 +65,11 @@ export default {
         return;
       }
 
-      // 发送请求到后端获取搜索结果
-      axios.post(`http://localhost:8000/restapi/search/`, { query: this.searchQuery })
+      // 发送请求到后端获取搜索结果，并包含所选数据集的信息
+      axios.post(`http://localhost:8000/restapi/search/`, {
+        query: this.searchQuery,
+        dataset: this.selectedDataset  // 发送所选数据集到后端
+      })
           .then((response) => {
             console.log(response.data);  // 打印后端返回的结果
             this.searchResults = response.data.results;  // 假设后端返回的JSON格式为 {results: [...]}
@@ -78,8 +92,29 @@ export default {
 }
 h2 {
   text-align: center;
-  //color: $;
+  font-weight: 800;
+  color: darkgrey;
 }
+
+select {
+  padding: 5px;
+  margin-top: 15px;
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 2px 2px 2px 2px;
+  border-color: $themeTrans;
+  transform: translate(0px, 0px) rotate(0deg);
+  transition: 0.2s;
+  box-shadow: -4px -2px 16px 0px #ffffff, 4px 2px 16px 0px rgba(180, 203, 181, 0.6);
+  font-weight: bold;
+  color: grey;
+  outline: none;
+}
+
+select:focus-visible {
+  border-color: $themeColor; /* 修改为所需的边框颜色 */
+}
+
 form {
   margin-top: 20px;
 }
@@ -135,11 +170,24 @@ form {
 .search-results {
   margin-top: 20px;
   width: 100%;
+  border-radius: 20px;
   border-collapse: collapse;
+  background-color: $themeTrans3;
+  border: 1px solid transparent;
+  overflow: hidden;
 }
+
+.search-results th {
+  background-color: $themeTrans;
+  color: grey;
+  font-weight: bold;
+  text-align: left;
+  padding: 12px 0 12px 20px;
+}
+
 .search-results th, .search-results td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 8px 0 8px 20px;
   text-align: left;
 }
 .no-data {

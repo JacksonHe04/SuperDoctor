@@ -41,7 +41,7 @@ const router = createRouter({
                     meta: { title: 'NLP算法处理' }
                 },
                 {
-                    path: '/login',
+                    path: 'login',
                     component: Login,
                     meta: { title: '登录超级医生' }
                 }
