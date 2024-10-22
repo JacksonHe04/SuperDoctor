@@ -105,7 +105,7 @@ const router = createRouter({
 
 // 全局前置守卫
 router.beforeEach((to, from, next) => {
-    document.title = to.meta.title || '秉文书城';
+    document.title = to.meta.title || '超级医生';
     next();
 });
 
