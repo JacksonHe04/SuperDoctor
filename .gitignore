@@ -1,0 +1,13 @@
+.idea/
+doctor_back/.idea/
+doctor_front/.vscode
+
+# Python 编译后的字节码文件
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Vue.js 编译后的文件
+dist/
+node_modules/
