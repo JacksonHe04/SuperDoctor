@@ -6,8 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist --repo git@github.com:JacksonHe04/SuperDoctor.git"
   },
+  "homepage": "https://jacksonhe04.github.io/SuperDoctor/doctor_front",
   "dependencies": {
     "pinia": "^2.2.4",
     "vue": "^3.5.11",
@@ -15,6 +18,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.4",
+    "gh-pages": "^6.2.0",
     "sass": "^1.79.5",
     "unplugin-auto-import": "^0.18.3",
     "unplugin-vue-components": "^0.27.4",
