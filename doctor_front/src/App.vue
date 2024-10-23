@@ -3,6 +3,7 @@
 
 <template>
   <RouterView />
+  test
 </template>
 
 <!-- 这个style标签定义了当前组件的样式，这些样式是私有的，仅在当前组件中生效 -->
