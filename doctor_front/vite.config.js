@@ -20,7 +20,7 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
   ],
-  base: '/SuperDcotor/',
+  base: '/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
